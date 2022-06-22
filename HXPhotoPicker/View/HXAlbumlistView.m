@@ -433,7 +433,7 @@
         if (HX_IOS11_Later) {
             if (self.manager.configuration.type == HXConfigurationTypeWXChat ||
                 self.manager.configuration.type == HXConfigurationTypeWXMoment) {
-                self.contentView.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.3];
+                self.contentView.backgroundColor = [UIColor clearColor];
                 [self.contentView hx_radiusWithRadius:15 corner:UIRectCornerAllCorners];
             }
         }
@@ -537,7 +537,7 @@
     if (HX_IOS11_Earlier) {
         if (self.manager.configuration.type == HXConfigurationTypeWXChat ||
             self.manager.configuration.type == HXConfigurationTypeWXMoment) {
-            self.contentView.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.3];
+            self.contentView.backgroundColor = [UIColor clearColor];
             [self.contentView hx_radiusWithRadius:15 corner:UIRectCornerAllCorners];
         }
     }
@@ -557,7 +557,7 @@
         CGFloat textWidth = self.titleLb.hx_getTextWidth;
         _titleLb.hx_w = textWidth;
         _titleLb.hx_h = 30;
-        _titleLb.font = [UIFont boldSystemFontOfSize:17];
+        _titleLb.font = [UIFont systemFontOfSize:14];
         _titleLb.textAlignment = NSTextAlignmentCenter;
     }
     return _titleLb;

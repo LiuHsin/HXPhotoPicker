@@ -291,7 +291,7 @@ HX_PhotoEditViewControllerDelegate
     [self changeColor];
 }
 - (void)setupNav {
-    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:[NSBundle hx_localizedStringForKey:@"取消"] style:UIBarButtonItemStylePlain target:self action:@selector(didCancelClick)];
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage hx_imageNamed:@"hx_cancel_item"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:UIBarButtonItemStylePlain target:self action:@selector(didCancelClick)];
     if (self.manager.configuration.albumShowMode == HXPhotoAlbumShowModePopup) {
         if (self.manager.configuration.photoListCancelLocation == HXPhotoListCancelButtonLocationTypeLeft) {
             self.navigationItem.leftBarButtonItem = cancelItem;
@@ -365,6 +365,7 @@ HX_PhotoEditViewControllerDelegate
                 appearance.backgroundEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
                 break;
         }
+        appearance.backgroundColor = [UIColor hx_colorWithHexStr:@"#283243"];
         self.navigationController.navigationBar.standardAppearance = appearance;
         self.navigationController.navigationBar.scrollEdgeAppearance = appearance;
     }
@@ -2313,6 +2314,8 @@ HX_PhotoEditViewControllerDelegate
 }
 - (void)setupUI  {
     self.startSession = NO;
+    [self.layer setCornerRadius:10];
+    [self.layer setMasksToBounds:YES];
     [self.contentView addSubview:self.previewView];
     [self.contentView addSubview:self.cameraBtn];
     if ([HXPhotoCommon photoCommon].isDark) {
@@ -2609,6 +2612,8 @@ HX_PhotoEditViewControllerDelegate
     return self;
 }
 - (void)setupUI {
+    [self.layer setCornerRadius:10];
+    [self.layer setMasksToBounds:YES];
     [self.contentView addSubview:self.imageView];
     [self.contentView addSubview:self.maskView];
     [self.contentView addSubview:self.highlightMaskView];
@@ -3300,10 +3305,10 @@ HX_PhotoEditViewControllerDelegate
 }
 - (void)setupUI {
     [self addSubview:self.bgView];
-    [self addSubview:self.previewBtn];
+//    [self addSubview:self.previewBtn];
     [self addSubview:self.originalBtn];
     [self addSubview:self.doneBtn];
-    [self addSubview:self.editBtn];
+//    [self addSubview:self.editBtn];
     [self changeDoneBtnFrame];
 }
 - (void)setManager:(HXPhotoManager *)manager {
@@ -3463,9 +3468,9 @@ HX_PhotoEditViewControllerDelegate
 }
 - (void)changeDoneBtnFrame {
     CGFloat width = self.doneBtn.titleLabel.hx_getTextWidth;
-    self.doneBtn.hx_w = width + 20;
-    if (self.doneBtn.hx_w < 60) {
-        self.doneBtn.hx_w = 60;
+    self.doneBtn.hx_w = width + 30;
+    if (self.doneBtn.hx_w < 68) {
+        self.doneBtn.hx_w = 68;
     }
     self.doneBtn.hx_x = self.hx_w - 12 - self.doneBtn.hx_w;
 }
@@ -3524,14 +3529,14 @@ HX_PhotoEditViewControllerDelegate
     [super layoutSubviews];
     
     self.bgView.frame = self.bounds;
-    self.previewBtn.frame = CGRectMake(12, 0, 0, 50);
-    self.previewBtn.hx_w = self.previewBtn.titleLabel.hx_getTextWidth;
-    self.previewBtn.center = CGPointMake(self.previewBtn.center.x, 25);
+//    self.previewBtn.frame = CGRectMake(12, 0, 0, 50);
+//    self.previewBtn.hx_w = self.previewBtn.titleLabel.hx_getTextWidth;
+//    self.previewBtn.center = CGPointMake(self.previewBtn.center.x, 25);
+//
+//    self.editBtn.frame = CGRectMake(CGRectGetMaxX(self.previewBtn.frame) + 10, 0, 0, 50);
+//    self.editBtn.hx_w = self.editBtn.titleLabel.hx_getTextWidth;
     
-    self.editBtn.frame = CGRectMake(CGRectGetMaxX(self.previewBtn.frame) + 10, 0, 0, 50);
-    self.editBtn.hx_w = self.editBtn.titleLabel.hx_getTextWidth;
-    
-    self.doneBtn.frame = CGRectMake(0, 0, 60, 30);
+    self.doneBtn.frame = CGRectMake(0, 0, 68, 26);
     self.doneBtn.center = CGPointMake(self.doneBtn.center.x, 25);
     [self changeDoneBtnFrame];
     
@@ -3558,10 +3563,10 @@ HX_PhotoEditViewControllerDelegate
     if (!_doneBtn) {
         _doneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_doneBtn setTitle:[NSBundle hx_localizedStringForKey:@"完成"] forState:UIControlStateNormal];
-        _doneBtn.titleLabel.font = [UIFont hx_mediumPingFangOfSize:16];
+        _doneBtn.titleLabel.font = [UIFont hx_mediumPingFangOfSize:14];
         [_doneBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_doneBtn setTitleColor:[[UIColor whiteColor] colorWithAlphaComponent:0.5] forState:UIControlStateDisabled];
-        _doneBtn.layer.cornerRadius = 3;
+        _doneBtn.layer.cornerRadius = 10;
         _doneBtn.enabled = NO;
         [_doneBtn addTarget:self action:@selector(didDoneBtnClick) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -3572,7 +3577,7 @@ HX_PhotoEditViewControllerDelegate
         _originalBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_originalBtn setTitle:[NSBundle hx_localizedStringForKey:@"原图"] forState:UIControlStateNormal];
         [_originalBtn addTarget:self action:@selector(didOriginalClick:) forControlEvents:UIControlEventTouchUpInside];
-        _originalBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+        _originalBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         _originalBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     }
     return _originalBtn;
