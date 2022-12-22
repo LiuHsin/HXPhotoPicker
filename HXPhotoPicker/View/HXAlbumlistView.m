@@ -528,6 +528,8 @@
             CGFloat difference = w_x - temp_x;
             self.contentView.hx_x += difference;
         }
+        //解决不居中的问题
+        self.contentView.hx_centerX = self.hx_w / 2;
     }
 }
 - (void)layoutSubviews {
